@@ -13,7 +13,7 @@ create table avatars(
 create table users (
 	username VARCHAR(64) NOT NULL PRIMARY KEY,
 	password VARCHAR(64) NOT NULL,
-	admin CHAR(1) NOT NULL,
+	admin INT NOT NULL,
 	avatar_ID INT
 );
 
