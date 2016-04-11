@@ -21,8 +21,9 @@ alter table users add FOREIGN KEY(avatar_ID) references avatars(ID);
 
 create table posts (
 	post_ID INT AUTO_INCREMENT PRIMARY KEY,
-	username_ID VARCHAR(64) NOT NULL,
+	username VARCHAR(64) NOT NULL,
 	post TEXT NOT NULL,
+	title TEXT NOT NULL,
 	vote INT
 );
 

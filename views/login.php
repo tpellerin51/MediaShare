@@ -125,7 +125,6 @@
                         return false;
                     }
                     
-                    
                     // No errors
                     return true;
                    }
