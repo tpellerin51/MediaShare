@@ -1,0 +1,20 @@
+Some queries that will be useful for sorting and such later on
+
+Sort by user
+Select post_ID from users natural join posts where user = ;
+
+Sort by top rated
+Select post_ID from posts sort by vote;
+
+Sort by most recent
+Select post_ID from posts sort by
+
+Show all comments for a given post
+Select 
+
+Display number of comments
+Select count(comment_ID) from comments natural join users where user = ;
+
+Display total upvote minus downvote count
+Select upvote - downvote from posts where user_ID = ;
+

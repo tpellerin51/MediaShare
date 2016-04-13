@@ -13,7 +13,7 @@ create table avatars(
 create table users (
 	username VARCHAR(64) NOT NULL PRIMARY KEY,
 	password VARCHAR(64) NOT NULL,
-	admin INT NOT NULL,
+	admin BOOL,
 	avatar_ID INT
 );
 
@@ -24,7 +24,8 @@ create table posts (
 	username VARCHAR(64) NOT NULL,
 	post TEXT NOT NULL,
 	title TEXT NOT NULL,
-	vote INT
+	upvote INT,
+	downvote INT
 );
 
 alter table posts add FOREIGN KEY(username_ID) references users(username);
