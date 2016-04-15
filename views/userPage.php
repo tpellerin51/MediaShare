@@ -30,7 +30,11 @@
                         <b>
                             <?php echo htmlentities($tr['title'], ENT_QUOTES, 'utf-8'); ?>
                         </b><br>
-                        <?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?></td>
+                        <?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
+					</td>
+					<form action='models/comment.php' method='get'>
+						<?php echo '<td><button type="submit" name="comment" value="'.$tr['post_ID'].'" />Comment</td>';?>
+					</form>
 					</tr>
 				<?php endforeach; ?>
         </tbody>

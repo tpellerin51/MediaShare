@@ -32,7 +32,7 @@ alter table posts add FOREIGN KEY(username_ID) references users(username);
 
 create table comments(
 	comment_ID INT AUTO_INCREMENT PRIMARY KEY,
-	username_ID VARCHAR(64) NOT NULL,
+	username VARCHAR(64) NOT NULL,
 	post_ID INT NOT NULL,
 	comment TEXT NOT NULL
 );

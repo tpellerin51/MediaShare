@@ -7,7 +7,7 @@ class Post {
         $this->db = $db;
     }
     
-        // Safely acquire the rows for getStudents function
+    // Safely acquire the rows
     function select($query){
         $select = $this->db->prepare($query);
         $select->bindParam('username', $this->username, PDO::PARAM_STR);
