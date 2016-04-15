@@ -13,7 +13,8 @@ class Post {
         $select->bindParam('username', $this->username, PDO::PARAM_STR);
         $select->bindParam('title', $this->title, PDO::PARAM_STR);
         $select->bindParam('post', $this->post, PDO::PARAM_STR);
-        $select->bindParam('vote', $this->vote, PDO::PARAM_INT);
+        $select->bindParam('upvote', $this->upvote, PDO::PARAM_INT);
+        $select->bindParam('downvote', $this->downvote, PDO::PARAM_INT);
         $select->bindParam('post_ID', $this->post_ID, PDO::PARAM_INT);
         $select->execute();
         return $select->fetchAll(PDO::FETCH_ASSOC);
@@ -30,6 +31,10 @@ class Post {
     
     function getPosts(){
         return $this->select("select * from posts order by title");
+    }
+    
+    function getUserPosts($user){
+        return $this->select("select * from posts where username= '$user'");
     }
     
 }

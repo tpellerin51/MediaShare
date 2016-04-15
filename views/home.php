@@ -30,7 +30,7 @@
                     
                     
 				<table class="table table-hover text-center">
-					<thead>
+					<thead class="text-center">
 						<th>Username</th>
 						<th>Post</th>
 					</thead>
@@ -39,11 +39,11 @@
 						<?php
 						foreach ($table_rows as $tr): ?>
 							<tr>
-								<td><?php echo htmlentities($tr['username'], ENT_QUOTES, 'utf-8'); ?></td>
+								<td><?php echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
 								<td>
                                     <b>
                                         <?php echo htmlentities($tr['title'], ENT_QUOTES, 'utf-8'); ?>
-                                    </b>
+                                    </b><br>
                                     <?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?></td>
 							</tr>
 						<?php endforeach; ?>
