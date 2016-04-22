@@ -45,9 +45,6 @@
                                         <?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?>
                                     </b>
 								</td>
-								<form action='models/comment.php' method='get'>
-									<?php echo '<td><button type="submit" name="comment" value="'.$tr['post_ID'].'" />Comment</td>';?>
-								</form>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
