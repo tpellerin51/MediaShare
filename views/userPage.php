@@ -17,25 +17,17 @@
 
     <table class="table table-hover text-center">
 		<thead>
-			<th>Username</th>
-			<th>Post</th>
+			<th>Title</th>
 		</thead>
         
         <tbody>
             <?php
             foreach ($user_rows as $tr): ?>
 				<tr>
-					<td><?php echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
 					<td>
-                        <b>
-                            <?php echo htmlentities($tr['title'], ENT_QUOTES, 'utf-8'); ?>
-                        </b><br>
-                        <?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
+					    <?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?>
 					</td>
-					<form action='models/comment.php' method='get'>
-						<?php echo '<td><button type="submit" name="comment" value="'.$tr['post_ID'].'" />Comment</td>';?>
-					</form>
-					</tr>
-				<?php endforeach; ?>
+				</tr>
+			<?php endforeach; ?>
         </tbody>
 </div>

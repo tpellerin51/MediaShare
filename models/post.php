@@ -37,4 +37,7 @@ class Post {
         return $this->select("select * from posts where username= '$user'");
     }
     
+    function getSinglePost($id){
+        return $this->select("select * from posts where post_ID= '$id'");
+    }
 }

@@ -1,37 +1,77 @@
 <?php
-	echo ("<h2 class='text-left'>" . $_GET['user'] . "'s post" . "</h2>");
-    require('views/menu.php');
-    
-    // TAKE THIS PHP OUT OF VIEW CONTOLLER
+	
+	// TAKE THIS PHP OUT OF VIEW CONTOLLER
 	require_once('models/database.php');
 	$db = databaseConnection();
-    
+	
     require_once('models/post.php');
-    $allUserPosts = new Post($db);
-    $post_row = $allUserPosts->getUserPosts($_GET['post_ID']);
-    
-    // need to also get array of post's comments up here i think
+    $posts = new Post($db);
 
+	$user_rows = $posts->getSinglePost($_GET['post']);
+	
+	require('views/menu.php');
 ?>
-
+	
 <div class="col-xs-9">
-    
-    <header>
-        <?php echo "<a href=\" index.php?post_ID=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?>
-    </header>
-    <body>
-        <?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
-    </body>
-    
-    // echo out all comments in a table here 
-    <table class="table table-hover text-center">
-        <?php foreach ($user_rows as $tr): ?>
+	
+	<?php foreach($user_rows as $tr):
+		echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "</h2>"; ?>
         
-    
-        <?php endforeach; ?>
-    </table>
-    
-    // need to add in comment and vote buttons to here soon. 
-    
-    
+		<br><br>
+		
+		<?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8');
+
+	endforeach; ?>
+	
+	<form id="commentForm">
+		<button id="comment" type="button">Comment</button>
+	</form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			
+<script>    
+    var mainForm = document.getElementById("commentForm"),
+        textBox = document.createElement("input");
+		submit = document.createElement("button");
+
+    textBox.id="commentBox";
+    textBox.type="text";
+	
+	submit.id="addComment";
+	submit.type="button";
+	
+
+    document.getElementById("comment").onclick = function () {
+         mainForm.appendChild(textBox);
+		 mainForm.appendChild(submit);
+    }
+
+    document.getElementById("addComment").onclick = function () {
+		console.log("here");
+		if (!postValidation()) {
+           event.preventDefault();
+        }
+        mainForm.removeChild(textBox);
+		mainForm.removeChild(submit);
+    }
+	
+	function postValidation() {
+        var comment = $('#commentBox input').val().trim();
+		
+		//Clear previous error reports
+        $('.form-group').removeClass('has-error');
+        $('.help-block').remove();
+		
+		if (!comment) {
+            $('#commentBox').append('<span class="help-block">Enter a comment</span>');
+            $('#commentBox').addClass('has-error');
+            $('#commentBox input').focus();
+            return false;            
+        }
+		
+		return true;
+    }
+</script>	
+
 </div>
