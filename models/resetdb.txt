@@ -28,7 +28,7 @@ create table posts (
 	downvote INT
 );
 
-alter table posts add FOREIGN KEY(username_ID) references users(username);
+alter table posts add FOREIGN KEY(username) references users(username);
 
 create table comments(
 	comment_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +37,7 @@ create table comments(
 	comment TEXT NOT NULL
 );
 
-alter table comments add FOREIGN KEY(username_ID) references users(username);
+alter table comments add FOREIGN KEY(username) references users(username);
 alter table comments add FOREIGN KEY(post_ID) references posts(post_ID);
 
 

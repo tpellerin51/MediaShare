@@ -13,6 +13,7 @@ if (isset($_POST['postTask'])){
     
     if(!isset($db)){
         $_SESSION['contentMessage'] = "Could not connect to database.";
+
     } else {
         if($_POST['postTask'] == 'post'){
         

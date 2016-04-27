@@ -22,9 +22,10 @@ class Comment {
         $insert = $this->db->prepare('insert into comments(username, comment, post_ID) values(:username, :comment, :post_ID)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':comment', $comment, PDO::PARAM_STR);
-        $insert->bindParam(':post_ID', $post_ID, PDO::PARAM_ID);
+        $insert->bindParam(':post_ID', $post_ID, PDO::PARAM_INT);
         return $insert->execute();
     }
+    
     
     function getPostComments($post_ID){
         return $this->select("select * from comments where post_ID= '$post_ID'");
