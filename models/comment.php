@@ -30,4 +30,16 @@ class Comment {
     function getPostComments($post_ID){
         return $this->select("select * from comments where post_ID= '$post_ID'");
     }
+    
+    function deleteComments($deleteID){
+        $delete = $this->db->prepare("delete from comments where post_ID=:id");
+        $delete->bindParam(':id', $deleteID, PDO::PARAM_INT);
+        return $delete->execute();
+    }
+    
+    function deleteComment($deleteID){
+        $delete = $this->db->prepare("delete from comments where comment_ID=:id");
+        $delete->bindParam(':id', $deleteID, PDO::PARAM_INT);
+        return $delete->execute();
+    }
 }

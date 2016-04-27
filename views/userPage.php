@@ -27,7 +27,17 @@
 					<td>
 					    <?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?>
 					</td>
+					<td>
+						<?php if($tr['username'] == $_SESSION['username']){
+							echo '<button class="deleteButton" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
+						}?>
+					</td>
 				</tr>
 			<?php endforeach; ?>
         </tbody>
 </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script src="/views/deletePost.js"></script>
+				

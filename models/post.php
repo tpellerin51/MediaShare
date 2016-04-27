@@ -40,4 +40,10 @@ class Post {
     function getSinglePost($id){
         return $this->select("select * from posts where post_ID= '$id'");
     }
+    
+    function deletePost($id){
+        $delete = $this->db->prepare("delete from posts where post_ID=:id");
+        $delete->bindParam(':id', $id, PDO::PARAM_INT);
+        return $delete->execute();
+    }
 }
