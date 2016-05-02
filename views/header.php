@@ -11,6 +11,9 @@
         <div class="container">
             <header class="page-header">
                 <h1 class="text-left">MediaShare</h1>
+                <h2 class="text-left">Welcome to MediaShare! Do you have something you want to get out there and share with the world?
+                                      This is the place for you. Vote or comment on other users posts to let them know your thoughts and opinions.</h2>
+                <h3 class="text-left">*This is a user friendly page so please refrain from vulgar language and inappropriate comments or images. Thank you!*</h3>
                 <?php if(isset($_SESSION['username'])):
                     $logoutName = $_SESSION['username']; ?>
                     <p class="text-right">
