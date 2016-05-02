@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <header class="page-header">
-                <h1 class="text-left">ADD TITLE HERE</h1>
+                <h1 class="text-left">MediaShare</h1>
                 <?php if(isset($_SESSION['username'])):
                     $logoutName = $_SESSION['username']; ?>
                     <p class="text-right">
