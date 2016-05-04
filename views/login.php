@@ -1,4 +1,15 @@
             <div class="row">
+                
+                <?php
+                    //TAKE THIS OUT OF VIEW CONTROLLER
+                    require_once('models/database.php');
+                    $db = databaseConnection();
+                    
+                    require_once('models/avatars.php');
+                    $allAvatars = new Avatars($db);
+                    $thumbnails = $allAvatars->getAvatars();
+                ?>
+                
                 <div class="col-sm-6">
                     <h3>Login</h3>
                     <form action="authenticate.php" method="post" id="login" class="well">
@@ -15,6 +26,8 @@
                     </form>
                 </div>
                 <div class="col-sm-6">
+                    
+                    
                     <h3>Register</h3>
                     <form action="authenticate.php" method="post" id="register" class="well">
                         <div id="usernameRegister" class="form-group">
@@ -29,9 +42,23 @@
                             <label>Confirm Password</label>
                             <input type="password" name="confirmPassword" class="form-control">
                         </div>
-                        <input type="hidden" name="admin" value=0>
+                        <div id="avatar">
+                            <label>Choose an Avatar</label>
+                            <br>
+                            <?php
+                            $id = 1;
+                            foreach($thumbnails as $pic):
+                                echo "<button id=$id onclick='outline(this.id); return false;'> <img src=" . $pic['url'] . "></button>";
+                                $id++;
+                            endforeach;
+                            ?>
+                            
+                        </div>
+                        <br>
+                        <input type="hidden" name="avatar_ID" id='selectAvatar'>
+                        <input type="hidden" name="admin" value=1>
                         <input type="hidden" name="task" value="register">
-                        <button type="submit" class="btn btn-default">Register</button>
+                        <button type="submit" id="registerButton" class="btn btn-default form-group">Register</button>
                     </form>
                 </div>
 <?php if (isset($_SESSION['message'])): ?>
@@ -45,6 +72,39 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
                 
             <script>
+                function getAvatar() {
+                    //Get the choosen avatar
+                    var id = document.getElementById("selectAvatar");
+                    
+                    var childNodes = document.getElementById("avatar").childNodes;
+                    var avatar = null;
+                    
+                    for (i = 0; i < childNodes.length; i++)
+                        if (childNodes[i].nodeName.toLowerCase() == 'button' && childNodes[i].style.backgroundColor == "red"){
+                            avatar = childNodes[i].id;
+                            break;
+                        }
+                    id.value = avatar;
+                    return avatar;
+                }
+            </script>
+            <script>
+                function outline(image) {
+                    if(document.getElementById(image).style.backgroundColor == "red"){
+                        document.getElementById(image).style.backgroundColor = "white";
+                    }else{
+                        var childNodes = document.getElementById("avatar").childNodes;
+                        
+                        for (i = 0; i < childNodes.length; i++)
+                            if (childNodes[i].nodeName.toLowerCase() == 'button')
+                                childNodes[i].style.backgroundColor = "white";
+                        
+                        document.getElementById(image).style.backgroundColor = "red";
+                    }
+                }
+            </script>
+
+            <script>
                 $(document).ready(function() {
                    
                    //Don't allow login or register if errors
@@ -54,7 +114,7 @@
                     }
                    });
                    
-                   $('#register button').on('click', function(event){
+                   $('#registerButton').on('click', function(event){
                     if (!registerValidate()) {
                         event.preventDefault();
                     }
@@ -98,6 +158,9 @@
                     var password = $('#passwordRegister input').val().trim();
                     var confirm = $('#confirm input').val().trim();
                     
+                    //Get the choosen avatar
+                    var avatar = getAvatar();
+                    
                     // Clear previous error reports
                     $('.form-group').removeClass('has-error');
                     $('.help-block').remove();
@@ -123,6 +186,12 @@
                         $('#confirm').addClass('has-error');
                         $('#confirm input').focus();
                         return false;
+                    }
+                    
+                    if (!avatar) {
+                        $('#avatar').append('<span class="help-block">Pick an avatar</span>');
+                        $('#avatar').addClass('has-error');
+                        return false;                        
                     }
                     
                     // No errors

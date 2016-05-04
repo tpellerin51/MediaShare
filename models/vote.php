@@ -20,7 +20,7 @@ class Vote {
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 	
-	function UpVote($username, $up_vote, $post_ID){
+	function upVote($username, $up_vote, $post_ID){
 		$up_vote++;
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':up_vote', $up_vote, PDO::PARAM_STR);
@@ -28,7 +28,7 @@ class Vote {
         return $insert->execute();
     }
 	
-	function DownVote($username, $down_vote, $post_ID){
+	function downVote($username, $down_vote, $post_ID){
 		$down_vote--;
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':down_vote', $down_vote, PDO::PARAM_STR);

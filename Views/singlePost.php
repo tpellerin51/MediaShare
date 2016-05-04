@@ -13,6 +13,9 @@
 	$comments = new Comment($db);
 
 	$allComments = $comments->getPostComments($_GET['post']);
+						
+	require_once('models/avatars.php');
+	$userAvatars = new Avatars($db);
 	
 	$username = $_SESSION['username'];
 	
@@ -21,15 +24,22 @@
 	
 <div class="col-xs-9">
 	<div class="bg-success">
-		<?php foreach($user_rows as $tr):
-			echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "</h2>"; ?>
+		
+		<?php
+
+		foreach($user_rows as $tr):
+			if(!$URL)
+				$URL = $userAvatars->getURL($tr['post_ID']);
+				
+			echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a>
+			</h2>"; ?>
         
 			<br><br>
 		
 			<?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
 			
 			<br>
-			<?php if($tr['username'] == $_SESSION['username']){
+			<?php if($tr['username'] == $_SESSION['username']  ||  $_SESSION['admin'] == 1){
 				echo '<button class="deleteButton" id="deletePost" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
 			}
 			
@@ -41,13 +51,19 @@
 		
 		<h3> Comments </h3>
 		<table class="table table-hover text-center" id="theComments">
-		<?php foreach($allComments as $tr): ?>
-		
+		<?php foreach($allComments as $tr):
+			$commentsURL = $userAvatars->getURLComments($tr['comment_ID']);
+		?>
 			<tr>
-				<td> <?php echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
+				<td>
+					<?php
+						echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a> 
+						<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>";
+					?>
+				</td>
 				<td> <?php echo htmlentities($tr['comment']); ?></td>
 				<td>
-					<?php if($tr['username'] == $_SESSION['username']){
+					<?php if($tr['username'] == $_SESSION['username'] || $_SESSION['admin'] == 1){
 						echo '<button class="deleteCommentButton" name="deleteComment" value="'.$tr['comment_ID'].'" />Delete Comment</button>';
 					}?>
 				</td>

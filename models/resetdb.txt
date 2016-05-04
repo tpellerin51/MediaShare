@@ -6,7 +6,7 @@ drop table if exists users;
 drop table if exists avatars;
 
 create table avatars(
-	ID INT AUTO_INCREMENT PRIMARY KEY,
+	avatar_ID INT AUTO_INCREMENT PRIMARY KEY,
 	url TEXT NOT NULL
 );
 
@@ -17,7 +17,7 @@ create table users (
 	avatar_ID INT
 );
 
-alter table users add FOREIGN KEY(avatar_ID) references avatars(ID);
+alter table users add FOREIGN KEY(avatar_ID) references avatars(avatar_ID);
 
 create table posts (
 	post_ID INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,6 +1,6 @@
-                    $(document).ready(function() {
-                    deletePost();
-                    });
+            $(document).ready(function() {
+               deletePost();
+            });
 				function deletePost() {
 					$('.deleteButton').on('click', function(event){
                         var redirect = ($(this).attr('id'));

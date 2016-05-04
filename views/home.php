@@ -26,7 +26,10 @@
                     require_once('models/post.php');
                     $allPosts = new Post($db);
                     $table_rows = $allPosts->getPosts();
-                    ?>
+					
+					require_once('models/avatars.php');
+					$userAvatars = new Avatars($db);
+					?>
                     
                     
 				<table class="table table-hover text-center">
@@ -39,15 +42,23 @@
 						<?php
 						foreach ($table_rows as $tr): ?>
 							<tr>
-								<td><?php echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
+								<td>
+									<?php
+										$URL = $userAvatars->getURL($tr['post_ID']);
+											
+										echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a>";
+										echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>";
+									?>
+								</td>
 								<td><?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
 								<td>
-									<?php if($tr['username'] == $_SESSION['username']){
+									<?php if($tr['username'] == $_SESSION['username']  || $_SESSION['admin'] == 1){
 										echo '<button class="deleteButton" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
 									}?>
 								</td>
 							</tr>
-						<?php endforeach; ?>
+						<?php endforeach;?>
+						
 					</tbody>
 				</table>
 			</div>

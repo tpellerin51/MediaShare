@@ -46,4 +46,5 @@ class Post {
         $delete->bindParam(':id', $id, PDO::PARAM_INT);
         return $delete->execute();
     }
+    
 }

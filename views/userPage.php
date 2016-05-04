@@ -1,15 +1,18 @@
 <?php
-
-	echo ("<h2 class='text-left'>" . $_GET['user'] . "'s page" . "</h2>");
-	require('views/menu.php');
-
 	// TAKE THIS PHP OUT OF VIEW CONTOLLER
 	require_once('models/database.php');
 	$db = databaseConnection();
+	
+	require_once('models/avatars.php');
+	$userAvatars = new Avatars($db);
+	$profilePic = $userAvatars->getUserURL($_GET['user']);
 					
     require_once('models/post.php');
     $allUserPosts = new Post($db);
     $user_rows = $allUserPosts->getUserPosts($_GET['user']);
+	
+	echo "<h2> <img src=" . $profilePic[0]['url'] . ">" . $_GET['user'] . "'s page" . "</h2>";
+	require('views/menu.php');
 ?>
 	
 <div class="col-xs-9">
@@ -28,7 +31,7 @@
 					    <?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?>
 					</td>
 					<td>
-						<?php if($tr['username'] == $_SESSION['username']){
+						<?php if($tr['username'] == $_SESSION['username'] || $_SESSION['admin'] == 1){
 							echo '<button class="deleteButton" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
 						}?>
 					</td>
