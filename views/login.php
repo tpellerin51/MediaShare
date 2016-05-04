@@ -56,7 +56,7 @@
                         </div>
                         <br>
                         <input type="hidden" name="avatar_ID" id='selectAvatar'>
-                        <input type="hidden" name="admin" value=1>
+                        <input type="hidden" name="admin" value=0>
                         <input type="hidden" name="task" value="register">
                         <button type="submit" id="registerButton" class="btn btn-default form-group">Register</button>
                     </form>
