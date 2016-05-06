@@ -22,7 +22,7 @@ class Post {
     
     // Attempt to add post
     function post($username, $post, $title){
-        $insert = $this->db->prepare('insert into posts(username, post, title) values(:username, :post, :title)');
+        $insert = $this->db->prepare('insert into posts(username, post, title, upvote, downvote) values(:username, :post, :title, 0, 0)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':post', $post, PDO::PARAM_STR);
         $insert->bindParam(':title', $title, PDO::PARAM_STR);
@@ -46,5 +46,4 @@ class Post {
         $delete->bindParam(':id', $id, PDO::PARAM_INT);
         return $delete->execute();
     }
-    
 }

@@ -20,20 +20,22 @@ class Vote {
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 	
-	function upVote($username, $up_vote, $post_ID){
-		$up_vote++;
-        $insert->bindParam(':username', $username, PDO::PARAM_STR);
-        $insert->bindParam(':up_vote', $up_vote, PDO::PARAM_STR);
-        $insert->bindParam(':post_ID', $post_ID, PDO::PARAM_ID);
-        return $insert->execute();
+	function UpVote($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET upvote = upvote + 1 WHERE post_ID = '$post_ID'");
+        return $update->execute();
     }
 	
-	function downVote($username, $down_vote, $post_ID){
-		$down_vote--;
-        $insert->bindParam(':username', $username, PDO::PARAM_STR);
-        $insert->bindParam(':down_vote', $down_vote, PDO::PARAM_STR);
-        $insert->bindParam(':post_ID', $post_ID, PDO::PARAM_ID);
-        return $insert->execute();
+	function DownVote($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET downvote = downvote + 1 WHERE post_ID = '$post_ID'");
+        return $update->execute();
     }
+	
+	function getUpVotes($post_ID){
+		return $this->select("select upvote from posts where post_ID = '$post_ID'");	
+	}
+	
+	function getDownVotes($post_ID){
+		return $this->select("select downvote from posts where post_ID = '$post_ID'");	
+	}
 
 }

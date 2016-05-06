@@ -13,34 +13,36 @@
 	$comments = new Comment($db);
 
 	$allComments = $comments->getPostComments($_GET['post']);
-						
-	require_once('models/avatars.php');
-	$userAvatars = new Avatars($db);
 	
 	$username = $_SESSION['username'];
+	
+	require_once('models/vote.php');
+	
+	$allVotes = new Vote($db);
 	
 	require('views/menu.php');
 ?>
 	
 <div class="col-xs-9">
 	<div class="bg-success">
-		
-		<?php
-
-		foreach($user_rows as $tr):
-			if(!$URL)
-				$URL = $userAvatars->getURL($tr['post_ID']);
-				
-			echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a>
-			</h2>"; ?>
-        
+		<?php foreach($user_rows as $tr):
+			$upvotes = $allVotes->getUpVotes($tr['post_ID']);
+			$downvotes = $allVotes->getDownVotes($tr['post_ID']);
+			echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "</h2>";
+			echo "<h5> UpVotes: " . $upvotes[0]['upvote'] . "<br> DownVotes:" . $downvotes[0]['downvote'] ."</h5>"; ?>
+			
 			<br><br>
 		
 			<?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
 			
 			<br>
-			<?php if($tr['username'] == $_SESSION['username']  ||  $_SESSION['admin'] == 1){
+			<?php if($tr['username'] == $_SESSION['username']){
+
 				echo '<button class="deleteButton" id="deletePost" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
+				echo "<form action= 'voting.php' method= 'post'>";
+				echo '<button type= "submit" id="upVotePost" name="upVotePost" value="'.$tr['post_ID'].'" />UpVote Post</button>';
+				echo '<button type= "submit" id="downVotePost" name="downVotePost" value="'.$tr['post_ID'].'" />DownVote Post</button>';
+				echo "</form>";
 			}
 			
 		endforeach; ?>
@@ -51,19 +53,13 @@
 		
 		<h3> Comments </h3>
 		<table class="table table-hover text-center" id="theComments">
-		<?php foreach($allComments as $tr):
-			$commentsURL = $userAvatars->getURLComments($tr['comment_ID']);
-		?>
+		<?php foreach($allComments as $tr): ?>
+		
 			<tr>
-				<td>
-					<?php
-						echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a> 
-						<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>";
-					?>
-				</td>
+				<td> <?php echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
 				<td> <?php echo htmlentities($tr['comment']); ?></td>
 				<td>
-					<?php if($tr['username'] == $_SESSION['username'] || $_SESSION['admin'] == 1){
+					<?php if($tr['username'] == $_SESSION['username']){
 						echo '<button class="deleteCommentButton" name="deleteComment" value="'.$tr['comment_ID'].'" />Delete Comment</button>';
 					}?>
 				</td>
