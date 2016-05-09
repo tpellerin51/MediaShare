@@ -1,3 +1,62 @@
-#postComment {
-    display:none;
-}
+            body {
+                width: 90%;
+                max-width: 900px;
+                min-width: 600px;
+                margin: auto;
+                margin-top: 20px;
+                background: #000000;
+                color: #000000;
+                font-family: Verdana, sans-serif;
+            }
+            
+            header,footer{
+                 background: #003399;
+                 width: 100%;
+                 background-size: cover;
+                 height: 300px;
+                 
+            }
+                 
+            header {
+                padding: 30px;
+            }
+            
+            h3 {
+                
+            }
+          
+            #Register{
+                margin-top:100px;
+                text-align: Right;
+            }
+            
+            #LogIN{
+                margin-top:100px;
+                text-align: Right;
+            }
+            
+            .login {
+                border: #FF0000;
+                background-color: #FF0000;
+                color: white;
+            }
+    
+            .login hover {
+                border: #00cd00;
+                background-color: #00cd00;
+                color: white;
+            }
+            
+            .large{
+                font-size:3em;
+                font-weight: bold;
+            }
+            
+            .centertext{
+                text-align: center;
+            }
+            
+            .margintop{
+                margin-top:100px;
+                
+            }
