@@ -4,8 +4,8 @@
                 min-width: 600px;
                 margin: auto;
                 margin-top: 20px;
-                background: #000000;
-                color: #000000;
+                background: url("http://i.makeagif.com/media/9-10-2015/8j37d5.gif");
+                color: #FFFFFF;
                 font-family: Verdana, sans-serif;
             }
             
@@ -13,26 +13,26 @@
                  background: #003399;
                  width: 100%;
                  background-size: cover;
-                 height: 300px;
+                 height: 600px;
                  
             }
                  
             header {
-                padding: 30px;
+                padding: 50px;
             }
             
-            h3 {
-                
-            }
+           
           
             #Register{
                 margin-top:100px;
                 text-align: Right;
+                color: #FFFFFF;
             }
             
-            #LogIN{
+            #login{
                 margin-top:100px;
                 text-align: Right;
+                color: #FFFFFF;
             }
             
             .login {
