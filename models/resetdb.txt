@@ -1,5 +1,6 @@
 use cs332;
 
+drop table if exists votes;
 drop table if exists comments;
 drop table if exists posts;
 drop table if exists users;
@@ -40,6 +41,15 @@ create table comments(
 alter table comments add FOREIGN KEY(username) references users(username);
 alter table comments add FOREIGN KEY(post_ID) references posts(post_ID);
 
+create table votes(
+	vote_ID INT AUTO_INCREMENT PRIMARY KEY,
+	post_ID INT NOT NULL,
+	username VARCHAR(64) NOT NULL,
+	voteType INT NOT NULL
+);
+
+alter table comments add FOREIGN KEY(username) references users(username);
+alter table comments add FOREIGN KEY(post_ID) references posts(post_ID);
 
 
 

@@ -3,12 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Reddit Esque</title>
+        <title>MediaShare</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="views/style.css">
     </head>
+    
+    <?php if(isset($_SESSION['username'])): ?>
     <body>
+    <?php else: ?>
+    <body class="loginRegister">
+    <?php endif; ?>
         <div class="container">
+
             <header class="page-header">
                 <h1 class="text-left">MediaShare</h1>
                 
@@ -25,5 +31,5 @@
                 <?php endif; ?>
                 
             </header>
-        </div>
+        </div></div>
     </body>

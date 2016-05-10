@@ -20,28 +20,30 @@
 ?>
 	
 <div class="col-xs-9">
-	<div class="bg-success">
+	<div>
 		<?php foreach($user_rows as $tr):
 			$upvotes = $posts->getUpVotes($tr['post_ID']);
 			$downvotes = $posts->getDownVotes($tr['post_ID']);
+			
 			echo "<h2>" . $tr['title'] . ' - ' . "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>" . "</h2>";
-			echo "<h5> UpVotes: " . $upvotes[0]['upvote'] . "<br> DownVotes:" . $downvotes[0]['downvote'] ."</h5>";?>
 			
-			<br><br>
-		
-			<?php echo htmlentities($tr['post'], ENT_QUOTES, 'utf-8'); ?>
+			echo "<h4>" . htmlentities($tr['post'], ENT_QUOTES, 'utf-8') . "</h4>"; 
 			
-			<br>
-			<?php if($tr['username'] == $_SESSION['username']){
-
-				echo '<button class="deleteButton" id="deletePost" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
-			}	
 			
 				echo "<form action= 'voting.php' method= 'post'>";
 				echo "<input type='hidden' name= 'post_ID' value=" . $tr['post_ID'] . ">";
-				echo '<button type= "submit" id="upVotePost" name="upVotePost" value="'.$tr['post_ID'].'" />UpVote Post</button>';
-				echo '<button type= "submit" id="downVotePost" name="downVotePost" value="'.$tr['post_ID'].'" />DownVote Post</button>';
+				
+				// Upvote/downvote buttons
+				echo '<input type="image" src="http://www.humanesociety.org/assets/images/maps/green_arrow.png" name="upVotePost" class="btTxt submit" id="upVotePost"value="'.$tr['post_ID'].'">';
+				echo "<br>";
+				echo $upvotes[0]['upvote'] - $downvotes[0]['downvote'];
+				echo "<br>";
+				echo '<input type="image" src="http://resources.guild-hosting.net/201604240553/themes/v2/image/vote/Dislike/8.png" name="downVotePost" class="btTxt submit" id="downVotePost"value="'. $tr['post_ID'].'">';
 				echo "</form>";
+				
+			if($tr['username'] == $_SESSION['username']){
+				echo '<button class="deleteButton" id="deletePost" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';
+			}
 			
 		endforeach; ?>
 		</div>

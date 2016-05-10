@@ -1,4 +1,4 @@
-            <div class="row">
+            <div class="row loginRegister">
                 
                 <?php
                     //TAKE THIS OUT OF VIEW CONTROLLER

@@ -32,10 +32,12 @@
 					?>
                     
                     
-				<table class="table table-hover text-center">
-					<thead class="text-center">
+				<table class="table table-hover">
+					<thead>
+						<th></th>
 						<th>Username</th>
 						<th>Post</th>
+						<th>Votes</th>
 					</thead>
 
 					<tbody id="allPosts">
@@ -44,13 +46,21 @@
 							<tr>
 								<td>
 									<?php
+									
+										$upvotes = $allPosts->getUpVotes($tr['post_ID']);
+										$downvotes = $allPosts->getDownVotes($tr['post_ID']);
+										
 										$URL = $userAvatars->getURL($tr['post_ID']);
 											
 										echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\"> <img src=" . $URL[0]['url'] . "></a>";
+										?>
+										</td><td>
+										<?php
 										echo "<a href=\" index.php?user=" . urlencode($tr['username']) . "\">" . htmlentities($tr['username'], ENT_QUOTES, 'utf-8') . "</a>";
 									?>
 								</td>
 								<td><?php echo "<a href=\" index.php?post=" . urlencode($tr['post_ID']) . "\">" . htmlentities($tr['title'], ENT_QUOTES, 'utf-8') . "</a>"; ?></td>
+								<td><?php echo $upvotes[0]['upvote'] - $downvotes[0]['downvote'];?></td>
 								<td>
 									<?php if($tr['username'] == $_SESSION['username']  || $_SESSION['admin'] == 1){
 										echo '<button class="deleteButton" name="deletePost" value="'.$tr['post_ID'].'" />Delete Post</button>';

@@ -30,7 +30,7 @@ class Post {
     }
     
     function getPosts(){
-        return $this->select("select * from posts order by title");
+        return $this->select("select * from posts order by upvote - downvote DESC");
     }
     
     function getUserPosts($user){
@@ -54,6 +54,16 @@ class Post {
 	
 	function downVote($post_ID){
 		$update = $this->db->prepare("UPDATE posts SET downvote = downvote + 1 WHERE post_ID = '$post_ID'");
+        return $update->execute();
+    }
+	
+	function upVoteAfterDown($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET upvote = upvote + 2 WHERE post_ID = '$post_ID'");
+        return $update->execute();
+    }
+	
+	function downVoteAfterUp($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET downvote = downvote + 2 WHERE post_ID = '$post_ID'");
         return $update->execute();
     }
 	

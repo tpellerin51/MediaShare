@@ -18,7 +18,7 @@
 <div class="col-xs-9">
 	
 
-    <table class="table table-hover text-center">
+    <table class="table table-hover">
 		<thead>
 			<th>Title</th>
 		</thead>
