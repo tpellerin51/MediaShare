@@ -46,4 +46,22 @@ class Post {
         $delete->bindParam(':id', $id, PDO::PARAM_INT);
         return $delete->execute();
     }
+    
+    function upVote($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET upvote = upvote + 1 WHERE post_ID = '$post_ID'");
+        return $update->execute();
+    }
+	
+	function downVote($post_ID){
+		$update = $this->db->prepare("UPDATE posts SET downvote = downvote + 1 WHERE post_ID = '$post_ID'");
+        return $update->execute();
+    }
+	
+	function getUpVotes($post_ID){
+		return $this->select("select upvote from posts where post_ID = '$post_ID'");	
+	}
+	
+	function getDownVotes($post_ID){
+		return $this->select("select downvote from posts where post_ID = '$post_ID'");	
+	}
 }
