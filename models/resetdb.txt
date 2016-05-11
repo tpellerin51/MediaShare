@@ -11,6 +11,12 @@ create table avatars(
 	url TEXT NOT NULL
 );
 
+insert into avatars (url) values('http://www.american-school-search.com/images/small-icon/saint-lawrence-university.png');
+
+insert into avatars (url) values('https://scontent.cdninstagram.com/t51.2885-19/s50x50/11378728_1871355983090575_1911684074_a.jpg');
+
+insert into avatars (url) values('http://cdn2-www.dogtime.com/assets/uploads/2013/02/file_17343_square_50_MIX-PUGGLE.jpg');
+
 create table users (
 	username VARCHAR(64) NOT NULL PRIMARY KEY,
 	password VARCHAR(64) NOT NULL,
